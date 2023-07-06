@@ -1,4 +1,5 @@
 class Parcel < ApplicationRecord
+	paginates_per 10
 
 	STATUS = ['Sent', 'In Transit', 'Delivered']
 	PAYMENT_MODE = ['COD', 'Prepaid']
