@@ -34,8 +34,6 @@ class ParcelsController < ApplicationController
 
     respond_to do |format|
       if @parcel.save
-        # ParcelMailer.status_updated_notification_sender(@parcel).deliver_later
-        # ParcelMailer.status_updated_notification_receiver(@parcel).deliver_later
         format.html { redirect_to @parcel, notice: 'Parcel was successfully created.' }
         format.json { render :show, status: :created, location: @parcel }
       else
