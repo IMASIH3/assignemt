@@ -1,17 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <h1>List Parcels</h1>
-<%= paginate @parcels %>
 
 <br />
 
 <%= link_to 'New Parcel', new_parcel_path %>
+<%#= link_to 'Export CSV', export_csv_parcels_path(format: :csv) %>
+
 
 <br /><br />
 
 <table>
   <thead>
     <tr>
+      <th>Order Id</th>
       <th>Weight</th>
       <th>Status</th>
       <th>Service Type</th>
@@ -25,6 +27,7 @@
   <tbody>
     <% @parcels.each do |parcel| %>
       <tr>
+        <td><%= parcel.order_id %></td>
         <td><%= parcel.weight %></td>
         <td><%= parcel.status %></td>
         <td><%= parcel.service_type.name %></td>
@@ -38,5 +41,4 @@
     <% end %>
   </tbody>
 </table>
-
 <%= paginate @parcels %>
