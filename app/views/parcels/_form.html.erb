@@ -11,15 +11,43 @@
     </div>
   <% end %>
 
+  <h2>Sender Information</h2>
+  <div class="field">
+    <%= form.label :sender_id %>
+    <%= form.text_field :sender, value: current_user.email %>
+    <%= form.hidden_field :sender_id, value: current_user.id %>
+  </div>
+
+  <!-- Add fields to display sender's contact details -->
+
+  <h2>Receiver Information</h2>
+  <div class="field">
+    <%= form.label :receiver_id %>
+    <%= form.select :receiver_id, @users %>
+    <%= link_to "New Receiver", new_userlist_path, target: "_blank" %>
+  </div>
+
+
+  <!-- Add fields to display receiver's contact details -->
+
+
+  <h2>Parcel Information</h2>
   <div class="field">
     <%= form.label :weight %>
     <%= form.text_field :weight %>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, Parcel::STATUS %>
-  </div>
+  <% if current_user.is_admin? %>
+    <div class="field">
+      <%= form.label :status %>
+      <%= form.select :status, Parcel::STATUS %>
+    </div>
+  <% else %>
+    <div class="field" style="pointer-events: none;">
+      <%= form.label :status %>
+      <%= form.select :status, Parcel::STATUS, { disabled: true }, style: " background: #BBBBBB" %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :service_type_id %>
@@ -29,18 +57,6 @@
   <div class="field">
     <%= form.label :payment_mode %>
     <%= form.select :payment_mode, Parcel::PAYMENT_MODE %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sender_id %>
-    <%= form.select :sender_id, @users %>
-    <%= link_to 'New Sender', new_user_path %>
-  </div>
-
-  <div class="field">
-    <%= form.label :receiver_id %>
-    <%= form.select :receiver_id, @users %>
-    <%= link_to 'New Receiver', new_user_path %>
   </div>
 
   <div class="field">

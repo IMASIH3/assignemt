@@ -1,9 +1,14 @@
 class ParcelsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_parcel, only: %i[ show edit update destroy ]
 
   # GET /parcels or /parcels.json
   def index
-    @parcels = Parcel.page(params[:page])
+    if current_user.is_admin?
+      @parcels = Parcel.includes(:sender, :receiver, :service_type).page(params[:page])
+    else
+      @parcels = Parcel.includes(:sender, :receiver, :service_type).where(sender_id: current_user.id)
+    end
   end
 
   # GET /parcels/1 or /parcels/1.json
@@ -13,13 +18,13 @@ class ParcelsController < ApplicationController
   # GET /parcels/new
   def new
     @parcel = Parcel.new
-    @users = User.all.map{|user| [user.name_with_address, user.id]}
+    @users = User.all.map { |user| [user.name_with_address, user.id] }
     @service_types = ServiceType.all.map{|service_type| [service_type.name, service_type.id]}
   end
 
   # GET /parcels/1/edit
   def edit
-    @users = User.all.map{|user| [user.name_with_address, user.id]}
+    @users = User.all.map { |user| [user.name_with_address, user.id] }
     @service_types = ServiceType.all.map{|service_type| [service_type.name, service_type.id]}
   end
 
@@ -29,6 +34,8 @@ class ParcelsController < ApplicationController
 
     respond_to do |format|
       if @parcel.save
+        # ParcelMailer.status_updated_notification_sender(@parcel).deliver_later
+        # ParcelMailer.status_updated_notification_receiver(@parcel).deliver_later
         format.html { redirect_to @parcel, notice: 'Parcel was successfully created.' }
         format.json { render :show, status: :created, location: @parcel }
       else
@@ -46,6 +53,8 @@ class ParcelsController < ApplicationController
   def update
     respond_to do |format|
       if @parcel.update(parcel_params)
+        ParcelMailer.status_updated_notification_sender(@parcel).deliver_later
+        ParcelMailer.status_updated_notification_receiver(@parcel).deliver_later
         format.html { redirect_to @parcel, notice: 'Parcel was successfully updated.' }
         format.json { render :show, status: :ok, location: @parcel }
       else
