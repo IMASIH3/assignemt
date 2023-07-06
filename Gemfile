@@ -60,3 +60,6 @@ gem 'kaminari'
 
 #For Debugging
 gem 'pry', '~> 0.13.1'
+
+#For Authentication
+gem "devise", "~> 4.9"
