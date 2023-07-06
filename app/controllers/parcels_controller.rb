@@ -3,7 +3,7 @@ class ParcelsController < ApplicationController
 
   # GET /parcels or /parcels.json
   def index
-    @parcels = Parcel.all
+    @parcels = Parcel.page(params[:page])
   end
 
   # GET /parcels/1 or /parcels/1.json
@@ -74,6 +74,6 @@ class ParcelsController < ApplicationController
     def parcel_params
       params.require(:parcel).permit(:weight, :status, :service_type_id,
                                      :payment_mode, :sender_id, :receiver_id,
-                                     :cost)
+                                     :cost, :order_id)
     end
 end

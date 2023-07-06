@@ -1,8 +1,11 @@
 class Parcel < ApplicationRecord
+	paginates_per 10
 
 	STATUS = ['Sent', 'In Transit', 'Delivered']
 	PAYMENT_MODE = ['COD', 'Prepaid']
 
+
+	after_create :generate_order_id
 	validates :weight, :status, presence: true
 	validates :status, inclusion: STATUS
 	validates :payment_mode, inclusion: PAYMENT_MODE
@@ -14,6 +17,11 @@ class Parcel < ApplicationRecord
 	after_create :send_notification
 
 	private
+
+	def generate_order_id
+		self.order_id = SecureRandom.random_number(100000..999999)
+		save
+	end
 
 	def send_notification
 		UserMailer.with(parcel: self).status_email.deliver_later

@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Users</h1>
+<%= paginate @users %>
 
 <table>
   <thead>
@@ -23,6 +24,8 @@
     <% end %>
   </tbody>
 </table>
+
+<%= paginate @users %>
 
 <br>
 

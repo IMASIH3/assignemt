@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+	paginates_per 10
+
 	validates :name, presence: true
 
 	has_one :address
@@ -9,6 +11,6 @@ class User < ApplicationRecord
 
 
 	def name_with_address
-		@name_with_address ||= [name, address.address_line_one, address.city, address.state, address.country, address.pincode].join('-')
+		@name_with_address ||= [name, address.address_line_one, address.city, address.state, address.country, address.pincode, address.mobile_number].join('-')
 	end
 end
