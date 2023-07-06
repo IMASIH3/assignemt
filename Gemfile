@@ -57,3 +57,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #For Pagination
 gem 'kaminari'
+
+#For Debugging
+gem 'pry', '~> 0.13.1'
