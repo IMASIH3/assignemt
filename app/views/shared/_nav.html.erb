@@ -5,6 +5,7 @@
   <% if current_user && current_user.is_admin? %>
     <li><a href="/userlist">Manage Users</a></li>
     <li><a href="/service_types">Service Types</a></li>
+    <li><%= link_to "Reports", csv_files_path %></li>
   <% end %>
   <% if current_user %>
     <li><%= button_to "Sign out", destroy_user_session_path, method: :delete %></li>

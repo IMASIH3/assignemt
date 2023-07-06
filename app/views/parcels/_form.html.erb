@@ -14,7 +14,7 @@
   <h2>Sender Information</h2>
   <div class="field">
     <%= form.label :sender_id %>
-    <%= form.text_field :sender, value: current_user.email %>
+    <%= form.text_field :sender, value: "#{current_user.name}-#{current_user.email}-#{current_user.address&.mobile_number}", disabled: true %>
     <%= form.hidden_field :sender_id, value: current_user.id %>
   </div>
 

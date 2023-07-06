@@ -1,0 +1,18 @@
+<h1>CSV Files</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Download</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @csv_files.each do |csv_file| %>
+      <tr>
+        <td><%= csv_file.name %></td>
+        <td><%= link_to 'Download', csv_file_path(csv_file), target: '_blank' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
