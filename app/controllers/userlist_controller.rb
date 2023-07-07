@@ -3,7 +3,7 @@ class UserlistController < ApplicationController
 
   # GET /userlist or /userlist.json
   def index
-    @users = User.all
+    @users = User.page(params[:page]).per(10)
   end
 
   # GET /userlist/1 or /userlist/1.json
