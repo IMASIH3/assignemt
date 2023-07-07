@@ -18,7 +18,7 @@ class ParcelsController < ApplicationController
   # GET /parcels/new
   def new
     @parcel = Parcel.new
-    @users = User.all.map { |user| [user.name_with_address, user.id] }
+    @users = User.joins(:address).where(addresses: { user_creator: current_user.id }).map { |user| [user.name_with_address, user.id] }
     @service_types = ServiceType.all.map{|service_type| [service_type.name, service_type.id]}
   end
 
@@ -34,8 +34,6 @@ class ParcelsController < ApplicationController
 
     respond_to do |format|
       if @parcel.save
-        # ParcelMailer.status_updated_notification_sender(@parcel).deliver_later
-        # ParcelMailer.status_updated_notification_receiver(@parcel).deliver_later
         format.html { redirect_to @parcel, notice: 'Parcel was successfully created.' }
         format.json { render :show, status: :created, location: @parcel }
       else

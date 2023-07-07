@@ -1,0 +1,5 @@
+parcel ID,cost,weight,status,Sender,Sender mobile number,Receiver,Receiver mobile number,Sender address,Receiver address
+2,75.0,10.0,Sent,,+917666819181,,+917666819181,"145(C), Near Jama Masjid, At Post: Padgha Borivali, Tal: Bhi, Bhiwandi, Maharashtra, India, 421101","145(C), Near Jama Masjid, At Post: Padgha Borivali, Tal: Bhi, Bhiwandi, Maharashtra, India, 421101"
+1,100.0,15.0,Delivered,,,,+917666819181,"","145(C), Near Jama Masjid, At Post: Padgha Borivali, Tal: Bhi, Bhiwandi, Maharashtra, India, 421101"
+3,0.0,0.0,Delivered,,,,,"",""
+4,75.0,10.0,Sent,,,,+917666819181,"","145(C), Near Jama Masjid, At Post: Padgha Borivali, Tal: Bhi, Bhiwandi, Maharashtra, India, 421101"
