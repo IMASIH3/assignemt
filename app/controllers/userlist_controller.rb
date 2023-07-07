@@ -25,6 +25,7 @@ class UserlistController < ApplicationController
   # POST /userlist or /userlist.json
   def create
     @user = User.new(user_params)
+    @user.address.update(user_creator: current_user.id) 
 
     respond_to do |format|
       if @user.password == @user.confirmation_password && @user.save
@@ -65,7 +66,7 @@ class UserlistController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :confirmation_password, address_attributes: [:id, :address_line_one, :address_line_two, :city, :state, :country, :pincode, :mobile_number, :_destroy])
+    params.require(:user).permit(:name, :email, :password, :confirmation_password, address_attributes: [:id, :address_line_one, :address_line_two, :city, :state, :country, :pincode, :mobile_number, :user_creator, :_destroy])
   end
 
   # def user_params

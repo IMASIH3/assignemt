@@ -31,8 +31,6 @@
     <%= form.password_field :confirmation_password %>
   </div>
 
-
-
   <%= form.fields_for :address do |f| %>
     <%= render 'addresses/address', form: f %>
   <% end %>

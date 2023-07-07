@@ -18,7 +18,7 @@ class ParcelsController < ApplicationController
   # GET /parcels/new
   def new
     @parcel = Parcel.new
-    @users = User.all.map { |user| [user.name_with_address, user.id] }
+    @users = User.joins(:address).where(addresses: { user_creator: current_user.id }).map { |user| [user.name_with_address, user.id] }
     @service_types = ServiceType.all.map{|service_type| [service_type.name, service_type.id]}
   end
 
