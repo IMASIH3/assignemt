@@ -14,9 +14,9 @@ class CsvGeneratorService
       "status",
       "Sender",
       "Sender mobile number",
+      "Sender address",
       "Receiver",
       "Receiver mobile number",
-      "Sender address",
       "Receiver address"
     ]
 
@@ -34,9 +34,9 @@ class CsvGeneratorService
           parcel.status,
           sender&.name,
           sender_address&.mobile_number,
+          format_address(sender_address),
           receiver&.name,
           receiver_address&.mobile_number,
-          format_address(sender_address),
           format_address(receiver_address)
         ]
       end
