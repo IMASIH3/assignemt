@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>List Parcels</h1>
-
+<%= paginate @parcels %>
 <br />
 
 <%= link_to 'New Parcel', new_parcel_path %>
@@ -9,7 +9,6 @@
 
 
 <br /><br />
-
 <table>
   <thead>
     <tr>

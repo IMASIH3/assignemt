@@ -7,6 +7,7 @@ class Parcel < ApplicationRecord
 
 	after_create :generate_order_id
 	validates :weight, :status, presence: true
+	validates :cost, :status, presence: true
 	validates :status, inclusion: STATUS
 	validates :payment_mode, inclusion: PAYMENT_MODE
 

@@ -5,11 +5,12 @@ class ParcelsController < ApplicationController
   # GET /parcels or /parcels.json
   def index
     if current_user.is_admin?
-      @parcels = Parcel.includes(:sender, :receiver, :service_type).page(params[:page])
+      @parcels = Parcel.includes(:sender, :receiver, :service_type).all.page(params[:page])
     else
-      @parcels = Parcel.includes(:sender, :receiver, :service_type).where(sender_id: current_user.id)
+      @parcels = Parcel.includes(:sender, :receiver, :service_type).where(sender_id: current_user.id).page(params[:page])
     end
   end
+  
 
   # GET /parcels/1 or /parcels/1.json
   def show
