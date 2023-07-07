@@ -2,8 +2,8 @@
   <li><a href="/">Home</a></li>
   <li><a href="/search">Search Orders</a></li>
   <li><a href="/parcels">Parcels</a></li>
+  <li><a href="/userlist">Manage Users</a></li>
   <% if current_user && current_user.is_admin? %>
-    <li><a href="/userlist">Manage Users</a></li>
     <li><a href="/service_types">Service Types</a></li>
     <li><%= link_to "Reports", csv_files_path %></li>
   <% end %>

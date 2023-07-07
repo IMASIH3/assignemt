@@ -1,9 +1,18 @@
 class UserlistController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /userlist or /userlist.json
+  # def index
+  #   @users = User.page(params[:page]).per(10)
+  # end
+
   def index
-    @users = User.page(params[:page]).per(10)
+    if current_user.is_admin?
+      @users = User.all.page(params[:page]).per(10)
+    else
+      @users = User.joins(:address).where(addresses: { user_creator: current_user.id }).page(params[:page])
+    end
   end
 
   # GET /userlist/1 or /userlist/1.json
@@ -59,6 +68,8 @@ class UserlistController < ApplicationController
   end
 
   private
+
+  
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.find(params[:id])
