@@ -26,6 +26,7 @@ class Parcel < ApplicationRecord
 
 	def send_notification
 		UserMailer.with(parcel: self).status_email.deliver_later
+		UserMailer.with(parcel: self).sender_status_email.deliver_later
 	end
 
 end

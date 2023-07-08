@@ -2,6 +2,7 @@
 
 <h1>List Parcels</h1>
 <%= paginate @parcels %>
+
 <br />
 
 <%= link_to 'New Parcel', new_parcel_path %>
@@ -38,9 +39,9 @@
         <td><%= parcel.sender.name %></td>
         <td><%= parcel.sender.address&.address_line_one %></td>
         <td><%= parcel.sender.address&.mobile_number %></td>
-        <td><%= parcel.receiver.name %></td>
-        <td><%= parcel.receiver.address&.address_line_one %></td>
-        <td><%= parcel.receiver.address&.mobile_number %></td>
+        <td><%= parcel.receiver&.name %></td>
+        <td><%= parcel.receiver&.address&.address_line_one %></td>
+        <td><%= parcel.receiver&.address&.mobile_number %></td>
         <td><%= link_to 'Show', parcel %></td>
         <td><%= link_to 'Edit', edit_parcel_path(parcel) %></td>
         <td><%= link_to 'Destroy', parcel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
