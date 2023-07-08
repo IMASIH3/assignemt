@@ -18,6 +18,7 @@
       <th>Status</th>
       <th>Service Type</th>
       <th>Payment Mode</th>
+      <th>Cost</th>
       <th>Sender Name</th>
       <th>Sender Address</th>
       <th>Sender Mobile No</th>
@@ -36,6 +37,7 @@
         <td><%= parcel.status %></td>
         <td><%= parcel.service_type.name %></td>
         <td><%= parcel.payment_mode %></td>
+        <td><%= parcel.cost %></td>
         <td><%= parcel.sender.name %></td>
         <td><%= parcel.sender.address&.address_line_one %></td>
         <td><%= parcel.sender.address&.mobile_number %></td>
