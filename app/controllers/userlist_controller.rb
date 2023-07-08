@@ -9,9 +9,9 @@ class UserlistController < ApplicationController
 
   def index
     if current_user.is_admin?
-      @users = User.all.page(params[:page]).per(10)
+      @users = User.order(created_at: :desc).page(params[:page]).per(10)
     else
-      @users = User.joins(:address).where(addresses: { user_creator: current_user.id }).page(params[:page])
+      @users = User.joins(:address).where(addresses: { user_creator: current_user.id }).order(created_at: :desc).page(params[:page])
     end
   end
 
