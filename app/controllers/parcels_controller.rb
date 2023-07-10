@@ -5,12 +5,20 @@ class ParcelsController < ApplicationController
   # GET /parcels or /parcels.json
   def index
     if current_user.is_admin?
-      @parcels = Parcel.includes(:sender, :receiver, :service_type).order(created_at: :desc).all.page(params[:page])
+      if params[:search].present?
+        @parcels = Parcel.includes(:sender, :receiver, :service_type).where("CAST(order_id AS TEXT) LIKE ?", "%#{params[:search]}%").order(created_at: :desc).page(params[:page])
+      else
+        @parcels = Parcel.includes(:sender, :receiver, :service_type).order(created_at: :desc).page(params[:page])
+      end
     else
-      @parcels = Parcel.includes(:sender, :receiver, :service_type).where(sender_id: current_user.id).order(created_at: :desc).page(params[:page])
+      if params[:search].present?
+        @parcels = Parcel.includes(:sender, :receiver, :service_type).where(sender_id: current_user.id).where("CAST(order_id AS TEXT) LIKE ?", "%#{params[:search]}%").order(created_at: :desc).page(params[:page])
+      else
+        @parcels = Parcel.includes(:sender, :receiver, :service_type).where(sender_id: current_user.id).order(created_at: :desc).page(params[:page])
+      end
     end
   end
-  
+
 
   # GET /parcels/1 or /parcels/1.json
   def show

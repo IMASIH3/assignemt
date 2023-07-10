@@ -1,12 +1,15 @@
 <p id="notice"><%= notice %></p>
 
 <h1>List Parcels</h1>
-<%= paginate @parcels %>
 
+<%= form_tag parcels_path, method: :get, class: "search-form" do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search parcels" %>
+  <%= submit_tag "Search" %>
+<% end %>
 <br />
 
 <%= link_to 'New Parcel', new_parcel_path %>
-<%#= link_to 'Export CSV', export_csv_parcels_path(format: :csv) %>
+<%= link_to 'Export CSV', export_csv_parcels_path(format: :csv) %>
 
 
 <br /><br />
@@ -35,7 +38,7 @@
         <td><%= parcel.order_id %></td>
         <td><%= parcel.weight %></td>
         <td><%= parcel.status %></td>
-        <td><%= parcel.service_type.name %></td>
+        <td><%= parcel.service_type&.name %></td>
         <td><%= parcel.payment_mode %></td>
         <td><%= parcel.cost %></td>
         <td><%= parcel.sender.name %></td>

@@ -9,11 +9,21 @@ class UserlistController < ApplicationController
 
   def index
     if current_user.is_admin?
-      @users = User.order(created_at: :desc).page(params[:page]).per(10)
+      if params[:search].present?
+        @users = User.where("lower(name) LIKE ?", "%#{params[:search].downcase}%").order(created_at: :desc).page(params[:page]).per(10)
+      else
+        @users = User.order(created_at: :desc).page(params[:page]).per(10)
+      end
     else
-      @users = User.joins(:address).where(addresses: { user_creator: current_user.id }).order(created_at: :desc).page(params[:page])
+      if params[:search].present?
+        @users = User.joins(:address).where(addresses: { user_creator: current_user.id }).where("lower(users.name) LIKE ?", "%#{params[:search].downcase}%").order(created_at: :desc).page(params[:page])
+      else
+        @users = User.joins(:address).where(addresses: { user_creator: current_user.id }).order(created_at: :desc).page(params[:page])
+      end
     end
   end
+  
+  
 
   # GET /userlist/1 or /userlist/1.json
   def show

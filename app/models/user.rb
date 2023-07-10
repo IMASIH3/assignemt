@@ -13,7 +13,7 @@ class User < ApplicationRecord
   # has_many :received_parcels, class_name: 'Parcel', foreign_key: 'receiver_id', dependent: :destroy
 
   def name_with_address
-    @name_with_address ||= [name, email].join('-')
+    @name_with_address ||= [name, email, address&.address_line_one, address&.mobile_number].join('-')
   end
 
   def is_admin?

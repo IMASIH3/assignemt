@@ -13,9 +13,13 @@
 
   <h2>Sender Information</h2>
   <div class="field">
+    <% if current_user.is_admin? %>
     <%= form.label :sender_id %>
-    <%= form.text_field :sender, value: "#{current_user.name}-#{current_user.email}-#{current_user.address&.mobile_number}", disabled: true %>
-    <%= form.hidden_field :sender_id, value: current_user.id %>
+    <%= form.select :sender_id, @users %>
+    <% else %>
+           <%= form.text_field :sender, value: "#{current_user.name}-#{current_user.email}-#{current_user.address&.mobile_number}", disabled: true %>
+    <% end %>
+     <%= form.hidden_field :sender_id, value: current_user.id %>
   </div>
 
   <!-- Add fields to display sender's contact details -->
@@ -33,7 +37,7 @@
   <h2>Parcel Information</h2>
   <div class="field">
     <%= form.label :weight %>
-    <%= form.text_field :weight %>
+    <%= form.text_field :weight, placeholder: "Please enter weight in kg" %>
   </div>
 
   <% if current_user.is_admin? %>
@@ -60,7 +64,7 @@
 
   <div class="field">
     <%= form.label :cost %>
-    <%= form.text_field :cost %>
+    <%= form.text_field :cost, placeholder: "Please enter cost in rupees" %>
   </div>
 
   <div class="actions">
